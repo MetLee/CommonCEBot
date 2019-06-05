@@ -36,6 +36,14 @@ def main():
     def start_bot(bot, update):
         bot.sendMessage(chat_id=update.message.chat_id, text='迷迭迷迭帕里桑', reply_to_message_id=update.message.message_id)
 
+    @command(CommandHandler, 'exit')
+    def exit_bot(bot, update):
+        if str(update.message.from_user.id) == config['owner_id']:
+            bot.sendMessage(chat_id=update.message.chat_id, text='done', reply_to_message_id=update.message.message_id)
+            os._exit(0)
+        else:
+            bot.sendMessage(chat_id=update.message.chat_id, text='401', reply_to_message_id=update.message.message_id)
+
     updater.start_polling()
 
 if __name__ == '__main__':
