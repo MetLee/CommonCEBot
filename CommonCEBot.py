@@ -58,9 +58,9 @@ def addKeyword(userId, keyword):
 def addSticker(userId, sticker):
     global userState, database
 
-    if isinstace(sticker, Sticker):
+    if isinstance(sticker, Sticker):
         fileId = sticker.file_id
-    elif isinstace(sticker, str):
+    elif isinstance(sticker, str):
         fileId = sticker
     else:
         return
@@ -79,6 +79,8 @@ def addSticker(userId, sticker):
         return
 
 def sendSticker(text):
+    global randomStickerCount
+
     if database:
         for keyword, fileIds in database:
             if keyword in text:
