@@ -96,7 +96,7 @@ def sendSticker(text):
             else:
                 pass
 
-        randomStickerCount =- 1
+        randomStickerCount -= 1
         if randomStickerCount == 0:
             randomStickerCount = rand.randint(1, randomConst)
             if randomStickerKeyword in database:
