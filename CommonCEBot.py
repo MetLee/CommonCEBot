@@ -136,8 +136,8 @@ def main():
         else:
             bot.sendMessage(chat_id=update.message.chat_id, text='401', reply_to_message_id=update.message.message_id)
 
-    @command(CommandHandler, 'addRandom', filters=Filters.private)
-    def addRandom_bot(bot, update):
+    @command(CommandHandler, 'add_random', filters=Filters.private)
+    def add_random_bot(bot, update):
         if str(update.message.from_user.id) == config['owner_id']:
             addKeyword(update.message.from_user.id, randomStickerKeyword)
             bot.sendMessage(chat_id=update.message.chat_id, text='please send the sticker.', reply_to_message_id=update.message.message_id)
