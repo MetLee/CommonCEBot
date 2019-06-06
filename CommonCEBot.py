@@ -133,29 +133,32 @@ def main():
 
     @command(CommandHandler, 'add', filters=Filters.private, pass_args=True)
     def add_bot(bot, update, args):
-        if str(update.message.from_user.id) == config['owner_id']:
-            addKeyword(update.message.from_user.id, args[0])
-            bot.sendMessage(chat_id=update.message.chat_id, text='please send the sticker.', reply_to_message_id=update.message.message_id)
+        id = str(update.message.from_user.id)
+        if id == config['owner_id']:
+            addKeyword(id, args[0])
+            bot.sendMessage(chat_id=id, text='please send the sticker.', reply_to_message_id=update.message.message_id)
         else:
-            bot.sendMessage(chat_id=update.message.chat_id, text='401', reply_to_message_id=update.message.message_id)
+            bot.sendMessage(chat_id=id, text='401', reply_to_message_id=update.message.message_id)
 
     @command(CommandHandler, 'add_random', filters=Filters.private)
     def add_random_bot(bot, update):
-        if str(update.message.from_user.id) == config['owner_id']:
-            addKeyword(update.message.from_user.id, randomStickerKeyword)
-            bot.sendMessage(chat_id=update.message.chat_id, text='please send the sticker.', reply_to_message_id=update.message.message_id)
+        id = str(update.message.from_user.id)
+        if id == config['owner_id']:
+            addKeyword(id, randomStickerKeyword)
+            bot.sendMessage(chat_id=id, text='please send the sticker.', reply_to_message_id=update.message.message_id)
         else:
-            bot.sendMessage(chat_id=update.message.chat_id, text='401', reply_to_message_id=update.message.message_id)
+            bot.sendMessage(chat_id=id, text='401', reply_to_message_id=update.message.message_id)
 
     @command(MessageHandler, Filters.private & Filters.sticker)
     def sticker_bot(bot, update):
-        if str(update.message.from_user.id) == config['owner_id']:
-            if addSticker(update.message.from_user.id, update.message.sticker):
-                bot.sendMessage(chat_id=update.message.chat_id, text='done.', reply_to_message_id=update.message.message_id)
+        id = str(update.message.from_user.id)
+        if id == config['owner_id']:
+            if addSticker(id, update.message.sticker):
+                bot.sendMessage(chat_id=id, text='done.', reply_to_message_id=update.message.message_id)
             else:
-                bot.sendMessage(chat_id=update.message.chat_id, text='error.', reply_to_message_id=update.message.message_id)
+                bot.sendMessage(chat_id=id, text='error.', reply_to_message_id=update.message.message_id)
         else:
-            bot.sendMessage(chat_id=update.message.chat_id, text='401', reply_to_message_id=update.message.message_id)
+            bot.sendMessage(chat_id=id, text='401', reply_to_message_id=update.message.message_id)
     
     @command(MessageHandler, Filters.text & (~ Filters.private))
     def chat_bot(bot, update):
