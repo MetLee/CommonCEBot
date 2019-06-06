@@ -70,7 +70,8 @@ def addSticker(userId, sticker):
         if keyword in database:
             database[keyword].add(fileId)
         else:
-            database[keyword] = set().add(fileId)
+            database[keyword] = set()
+            database[keyword].add(fileId)
         del userState[userId]
 
         saveDatabase()
