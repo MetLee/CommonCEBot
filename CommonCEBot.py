@@ -12,6 +12,7 @@ userState = {}
 randomStickerKeyword = '#&#&#random#$#$#'
 randomStickerCount = 0
 rand = random.SystemRandom()
+stickerConst = 4
 
 def loadConfig():
     global config
@@ -87,7 +88,10 @@ def sendSticker(text):
         for keyword, fileIds in database.items():
             if keyword in text:
                 randNumber = rand.randint(0,len(fileIds)-1)
-                return fileIds[randNumber]
+                if rand.randint(1,stickerConst) == 1:
+                    return fileIds[randNumber]
+                else:
+                    return None
             else:
                 pass
 
