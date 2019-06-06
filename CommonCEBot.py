@@ -78,6 +78,28 @@ def addSticker(userId, sticker):
     else:
         return
 
+def sendSticker(text):
+    if database:
+        for keyword, fileIds in database:
+            if keyword in text:
+                randNumber = rand.randint(0,len(fileIds)-1)
+                return fileIds[randNumber]
+            else:
+                pass
+
+        randomStickerCount =- 1
+        if randomStickerCount == 0:
+            randomStickerCount = rand.randint(1, 99)
+            if randomStickerKeyword in database:
+                fileIds = database[randomStickerKeyword]
+                randNumber = rand.randint(0,len(fileIds)-1)
+                return fileIds[randNumber]
+            else:
+                return None
+        else:
+            return None
+    else:
+        return None
 
 def main():
     global config, randomStickerCount
@@ -130,31 +152,11 @@ def main():
         else:
             bot.sendMessage(chat_id=update.message.chat_id, text='401', reply_to_message_id=update.message.message_id)
     
-    @command(MessageHandler, Filters.text)
+    @command(MessageHandler, Filters.text & (~ Filters.private))
     def chat_bot(bot, update):
-        if database:
-            for keyword, fileIds in database:
-                if keyword in update.message.text:
-                    randNumber = rand.randint(0,len(fileIds)-1)
-                    bot.sendSticker(chat_id=update.message.chat_id, sticker=fileIds[randNumber])
-                    return
-                else:
-                    pass
-
-            randomStickerCount =- 1
-            if randomStickerCount == 0:
-                if randomStickerKeyword in database:
-                    fileIds = database[randomStickerKeyword]
-                    randNumber = rand.randint(0,len(fileIds)-1)
-                    bot.sendSticker(chat_id=update.message.chat_id, sticker=fileIds[randNumber])
-                else:
-                    pass
-                randomStickerCount = rand.randint(1, 99)
-                return
-            else:
-                pass
-        else:
-            return
+        fileId = sendSticker(update.message.text)
+        if fileId:
+            bot.sendSticker(chat_id=update.message.chat_id, sticker=fileId)
 
     @command(CommandHandler, 'exit', filters=Filters.private)
     def exit_bot(bot, update):
