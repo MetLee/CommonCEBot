@@ -84,7 +84,7 @@ def sendSticker(text):
     global randomStickerCount, rand
 
     if database:
-        for keyword, fileIds in database:
+        for keyword, fileIds in database.items():
             if keyword in text:
                 randNumber = rand.randint(0,len(fileIds)-1)
                 return fileIds[randNumber]
