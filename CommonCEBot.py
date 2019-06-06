@@ -81,7 +81,7 @@ def addSticker(userId, sticker):
         return False
 
 def sendSticker(text):
-    global randomStickerCount
+    global randomStickerCount, rand
 
     if database:
         for keyword, fileIds in database:
@@ -106,7 +106,7 @@ def sendSticker(text):
         return None
 
 def main():
-    global config, randomStickerCount
+    global config, randomStickerCount, rand
 
     loadConfig()
     loadDatabase()
