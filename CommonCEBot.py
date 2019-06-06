@@ -63,7 +63,7 @@ def addSticker(userId, sticker):
     elif isinstance(sticker, str):
         fileId = sticker
     else:
-        return
+        return False
 
     if userId in userState:
         keyword = userState[userId]
@@ -75,8 +75,9 @@ def addSticker(userId, sticker):
 
         saveDatabase()
         saveUserState()
+        return True
     else:
-        return
+        return False
 
 def sendSticker(text):
     global randomStickerCount
@@ -149,8 +150,10 @@ def main():
     @command(MessageHandler, Filters.private & Filters.sticker)
     def sticker_bot(bot, update):
         if str(update.message.from_user.id) == config['owner_id']:
-            addSticker(update.message.from_user.id, update.message.sticker)
-            bot.sendMessage(chat_id=update.message.chat_id, text='done.', reply_to_message_id=update.message.message_id)
+            if addSticker(update.message.from_user.id, update.message.sticker):
+                bot.sendMessage(chat_id=update.message.chat_id, text='done.', reply_to_message_id=update.message.message_id)
+            else:
+                bot.sendMessage(chat_id=update.message.chat_id, text='error.', reply_to_message_id=update.message.message_id)
         else:
             bot.sendMessage(chat_id=update.message.chat_id, text='401', reply_to_message_id=update.message.message_id)
     
