@@ -161,7 +161,7 @@ def main():
         else:
             bot.sendMessage(chat_id=id, text='401', reply_to_message_id=update.message.message_id)
     
-    @command(MessageHandler, Filters.text & (~ Filters.private))
+    @command(MessageHandler, Filters.text & Filters.group)
     def chat_bot(bot, update):
         fileId = sendSticker(update.message.text)
         if fileId:
