@@ -65,9 +65,9 @@ def addSticker(userId, sticker):
     else:
         return
 
-    if userState.has_key(userId):
+    if userId in userState:
         keyword = userState[userId]
-        if database.has_key(keyword):
+        if keyword in database:
             database[keyword].add(fileId)
         else:
             database[keyword] = set().add(fileId)
@@ -143,7 +143,7 @@ def main():
 
             randomStickerCount =- 1
             if randomStickerCount == 0:
-                if database.has_key(randomStickerKeyword):
+                if randomStickerKeyword in database:
                     fileIds = database[randomStickerKeyword]
                     randNumber = rand.randint(0,len(fileIds)-1)
                     bot.sendSticker(chat_id=update.message.chat_id, sticker=fileIds[randNumber])
