@@ -12,7 +12,8 @@ userState = {}
 randomStickerKeyword = '#&#&#random#$#$#'
 randomStickerCount = 0
 rand = random.SystemRandom()
-stickerConst = 4
+stickerConst = 2
+randomConst = 30
 
 def loadConfig():
     global config
@@ -97,7 +98,7 @@ def sendSticker(text):
 
         randomStickerCount =- 1
         if randomStickerCount == 0:
-            randomStickerCount = rand.randint(1, 99)
+            randomStickerCount = rand.randint(1, randomConst)
             if randomStickerKeyword in database:
                 fileIds = database[randomStickerKeyword]
                 randNumber = rand.randint(0,len(fileIds)-1)
@@ -115,7 +116,7 @@ def main():
     loadConfig()
     loadDatabase()
     loadUserState()
-    randomStickerCount = rand.randint(1, 99)
+    randomStickerCount = rand.randint(1, randomConst)
     bot = Bot(config['token'])
     updater = Updater(token=config['token'])
     dispatcher = updater.dispatcher
